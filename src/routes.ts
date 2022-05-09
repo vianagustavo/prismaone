@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { response, Router } from "express";
 import { AuthenticateUserController } from "./controllers/authenticateUserController";
 import { CreateEnrollmentController } from "./controllers/createEnrollmentController";
 import { CreateUserController } from "./controllers/createUserController";
@@ -29,9 +29,9 @@ router.post(
   createEnrollmentController.handle
 );
 router.get("/", () => {
-  return {
+  return response.json({
     ok: true
-  };
+  });
 });
 
 export { router };
