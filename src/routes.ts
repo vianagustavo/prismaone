@@ -1,4 +1,4 @@
-import { response, Router } from "express";
+import { Request, Response, response, Router } from "express";
 import { AuthenticateUserController } from "./controllers/authenticateUserController";
 import { CreateEnrollmentController } from "./controllers/createEnrollmentController";
 import { CreateUserController } from "./controllers/createUserController";
@@ -14,7 +14,7 @@ const listEnrollments = new ListEnrollments();
 const getEnrollmentInfo = new GetEnrollmentInfo();
 const createEnrollmentController = new CreateEnrollmentController();
 
-router.get("/", () => {
+router.get("/", (_, response: Response) => {
   return response.json({
     ok: true
   });
