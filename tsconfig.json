@@ -5,6 +5,6 @@
     "strict": true,
     "lib": ["esnext"],
     "esModuleInterop": true,
-    "target": "es6"
+    "target": "es5"
   }
 }

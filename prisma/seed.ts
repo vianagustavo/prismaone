@@ -1,18 +1,18 @@
 import { hash } from "bcryptjs";
 import { v4 as uuid } from "uuid";
-import { Enrollment, PrismaClient } from "../node_modules/.prisma/client/index";
+import { Enrollment } from "../node_modules/.prisma/client/index";
+import { prismaClient } from "../src/database/prismaClient";
 
-const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.user.create({
+  await prismaClient.user.create({
     data: {
       login: process.env.ADMIN_LOGIN as string,
       name: "MASTER",
       password: await hash(process.env.ADMIN_PASSWORD as string, 8),
     },
   });
-  await prisma.enrollment.createMany({
+  await prismaClient.enrollment.createMany({
     data: generateEnrollmentList(),
   });
 }
@@ -43,5 +43,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    await prismaClient.$disconnect();
   });
