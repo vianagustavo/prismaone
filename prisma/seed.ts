@@ -1,40 +1,17 @@
 import { hash } from "bcryptjs";
-import { v4 as uuid } from "uuid";
-import { Enrollment } from "../node_modules/.prisma/client/index";
 import { prismaClient } from "../src/database/prismaClient";
 
-
 async function main() {
-  await prismaClient.user.create({
-    data: {
-      login: process.env.ADMIN_LOGIN as string,
-      name: "MASTER",
-      password: await hash(process.env.ADMIN_PASSWORD as string, 8),
-    },
+  await prismaClient.user.createMany({
+    data: [
+      {
+        login: process.env.ADMIN_LOGIN as string,
+        name: "MASTER",
+        password: await hash(process.env.ADMIN_PASSWORD as string, 8)
+      }
+    ],
+    skipDuplicates: true
   });
-  await prismaClient.enrollment.createMany({
-    data: generateEnrollmentList(),
-  });
-}
-
-function generateEnrollmentList() {
-  const enrollmentQuantity = 10;
-  const enrollmentList: Enrollment[] = [];
-  for (let index = 0; index < enrollmentQuantity; index++) {
-    const enrollment = (
-      Math.floor(Math.random() * (9999999999999 - 1000000000000 + 1)) +
-      1000000000000
-    ).toString();
-    const enrollmentEntity: Enrollment = {
-      enrollment,
-      status: Math.random() < 0.5,
-      id: uuid(),
-      created_at: new Date(),
-      updated_at: new Date(),
-    };
-    enrollmentList.push(enrollmentEntity);
-  }
-  return enrollmentList;
 }
 
 main()
