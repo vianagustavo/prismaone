@@ -28,5 +28,10 @@ router.post(
   ensureAuthenticated,
   createEnrollmentController.handle
 );
+router.get("/", () => {
+  return {
+    ok: true
+  };
+});
 
 export { router };
