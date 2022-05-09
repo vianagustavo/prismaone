@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/index.js",
     "dev": "ts-node-dev src/server.ts"
   },
   "dependencies": {
