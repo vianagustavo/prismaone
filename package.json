@@ -1,8 +1,10 @@
 {
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/src/server.js",
     "dev": "ts-node-dev src/server.ts"
+  
   },
   "dependencies": {
     "@prisma/client": "^3.13.0",
@@ -24,4 +26,5 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   }
+ 
 }
