@@ -16,10 +16,10 @@ export class CreateEnrollmentController {
         status: Math.random() < 0.5,
         id: uuid(),
         created_at: new Date(),
-        updated_at: new Date(),
+        updated_at: new Date()
       };
       enrollmentList.push(enrollmentEntity);
     }
-    return enrollmentList;
+    return response.json(enrollmentList);
   }
 }

@@ -14,9 +14,15 @@ const listEnrollments = new ListEnrollments();
 const getEnrollmentInfo = new GetEnrollmentInfo();
 const createEnrollmentController = new CreateEnrollmentController();
 
+router.get("/", () => {
+  return response.json({
+    ok: true
+  });
+});
+
 router.post("/users", ensureAuthenticated, createUserController.handle);
 router.post("/auth/user/login", authenticateUserController.handle);
-router.post("/students", ensureAuthenticated);
+
 router.get("/enrollments", ensureAuthenticated, listEnrollments.handle);
 router.get(
   "/enrollments/:enrollment",
@@ -28,10 +34,5 @@ router.post(
   ensureAuthenticated,
   createEnrollmentController.handle
 );
-router.get("/", () => {
-  return response.json({
-    ok: true
-  });
-});
 
 export { router };
