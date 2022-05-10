@@ -31,16 +31,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Install dependencies
         run: yarn --frozen-lockfile
-
-        - name: Deploy application
+      - name: Deploy application
         if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
