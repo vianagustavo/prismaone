@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - master
   pull_request:
     branches:
       - main
-      - master
 
 jobs:
   build:
@@ -20,11 +18,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:14.2
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: root
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: db_test
+          POSTGRES_DB: prisma_one_tests
         ports:
           - 5432/tcp
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5

@@ -1,6 +1,7 @@
 import { Enrollment } from "@prisma/client";
 import { Request, Response } from "express";
 import { v4 as uuid } from "uuid";
+import { prismaClient } from "../database/prismaClient";
 
 export class CreateEnrollmentController {
   async handle(request: Request, response: Response) {
@@ -11,15 +12,18 @@ export class CreateEnrollmentController {
         Math.floor(Math.random() * (9999999999999 - 1000000000000 + 1)) +
         1000000000000
       ).toString();
-      const enrollmentEntity: Enrollment = {
-        enrollment,
-        status: Math.random() < 0.5,
-        id: uuid(),
-        created_at: new Date(),
-        updated_at: new Date()
-      };
-      enrollmentList.push(enrollmentEntity);
+      await prismaClient.enrollment.create({
+        data: {
+          enrollment,
+          status: Math.random() < 0.5,
+          id: uuid(),
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      });
     }
-    return response.json(enrollmentList);
+    const info = await prismaClient.enrollment.findMany();
+
+    return response.json(info);
   }
 }
