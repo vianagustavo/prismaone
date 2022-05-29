@@ -2,7 +2,7 @@
   "scripts": {
     "build": "tsc",
     "start": "prisma migrate deploy && prisma db seed && node dist/src/server.js",
-    "dev": "yarn prisma db seed && ts-node-dev src/server.ts",
+    "dev": "yarn prisma migrate dev && yarn prisma db seed && ts-node-dev src/server.ts",
     "test": "dotenv -e .env.test yarn prisma migrate dev && dotenv -e .env.test prisma db seed && jest -i"
   },
   "dependencies": {
